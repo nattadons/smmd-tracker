@@ -1,0 +1,34 @@
+SMMD-TRACKER
+│── .next
+│── node_modules
+│── public
+│   └── images
+│       ├── Facebook.png
+│       ├── Instagram.png
+│       ├── smmd.png
+│       ├── Twitter.png
+│── src
+│   ├── app
+│   │   ├── dashboard
+│   │   │   ├── followers-chart
+│   │   │   ├── page.tsx
+│   │   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── components
+│   │   ├── DashboardPanel.tsx
+│   │   ├── FacebookDashboard.tsx
+│   │   ├── InstagramDashboard.tsx
+│   │   ├── SocialButton.tsx
+│   │   ├── TwitterDashboard.tsx
+│   ├── contexts
+│   │   ├── SocialPlatformContext.tsx
+│── .gitignore
+│── eslint.config.mjs
+│── next-env.d.ts
+│── next.config.ts
+│── package-lock.json
+│── package.json

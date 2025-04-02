@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SocialPlatformProvider } from '@/contexts/SocialPlatformContext';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="inset-0 bg-gradient-to-r from-purple-300 via-pink-300 to-blue-300 animate-gradient-x "> 
+        <SocialPlatformProvider>
         {children}
+        </SocialPlatformProvider>
+       
+        </div>
       </body>
     </html>
   );
