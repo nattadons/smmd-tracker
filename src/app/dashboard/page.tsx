@@ -1,7 +1,7 @@
 "use client";
 
 import { useSocialPlatform } from "@/contexts/SocialPlatformContext";
-import FacebookDashboard from "@/components/FacebookDashboard";
+import YoutubeDashboard from "@/components/YoutubeDashboard";
 
 
 export default function DashboardPage() {
@@ -11,11 +11,11 @@ export default function DashboardPage() {
   const renderDashboard = () => {
     if (connections[activePlatform]) {
       switch (activePlatform) {
-        case "facebook":
-          return <FacebookDashboard  />;
-        case "instagram":
-          // return <InstagramDashboard />; 
-          return <div className="w-full p-8 bg-white rounded-2xl shadow-xl">Instagram Dashboard (Coming Soon)</div>;
+        case "youtube":
+          return <YoutubeDashboard  />;
+        case "tiktok":
+          // return <TiktokDashboard />; 
+          return <div className="w-full p-8 bg-white rounded-2xl shadow-xl">Tiktok Dashboard (Coming Soon)</div>;
         case "twitter":
           // return <TwitterDashboard />;
           return <div className="w-full p-8 bg-white rounded-2xl shadow-xl">Twitter Dashboard (Coming Soon)</div>;

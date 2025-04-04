@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
 // กำหนด type สำหรับ platforms ที่รองรับ
-export type SocialPlatform = "facebook" | "instagram" | "twitter";
+export type SocialPlatform = "youtube" | "tiktok" | "twitter";
 
 // กำหนดรูปแบบข้อมูลที่จะเก็บใน context
 interface SocialPlatformContextType {
@@ -21,20 +21,20 @@ const SocialPlatformContext = createContext<SocialPlatformContextType | undefine
 export const SocialPlatformProvider = ({ children }: { children: ReactNode }) => {
     // State เก็บสถานะการเชื่อมต่อของแต่ละแพลตฟอร์ม
     const [connections, setConnections] = useState<Record<SocialPlatform, boolean>>({
-        facebook: false,
-        instagram: false,
+        youtube: false,
+        tiktok: false,
         twitter: false
     });
 
     // State เก็บแพลตฟอร์มที่กำลังใช้งานอยู่
-    const [activePlatform, setActivePlatform] = useState<SocialPlatform>("facebook");
+    const [activePlatform, setActivePlatform] = useState<SocialPlatform>("youtube");
     const router = useRouter(); // ใช้ useRouter เพื่อนำทาง
     // โหลด connection status จาก localStorage เมื่อ component mount
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const savedConnections = {
-                facebook: localStorage.getItem("facebook") === "true",
-                instagram: localStorage.getItem("instagram") === "true",
+                youtube: localStorage.getItem("youtube") === "true",
+                tiktok: localStorage.getItem("tiktok") === "true",
                 twitter: localStorage.getItem("twitter") === "true"
             };
 
@@ -45,8 +45,8 @@ export const SocialPlatformProvider = ({ children }: { children: ReactNode }) =>
     // บันทึก connection status ลง localStorage เมื่อมีการเปลี่ยนแปลง
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            localStorage.setItem("facebook", connections.facebook.toString());
-            localStorage.setItem("instagram", connections.instagram.toString());
+            localStorage.setItem("youtube", connections.youtube.toString());
+            localStorage.setItem("tiktok", connections.tiktok.toString());
             localStorage.setItem("twitter", connections.twitter.toString());
         }
     }, [connections]);

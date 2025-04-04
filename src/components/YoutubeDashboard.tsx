@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useSocialPlatform } from "@/contexts/SocialPlatformContext";
+
 // เพิ่ม props สำหรับการจัดการ disconnect
 export default function FacebookDashboard({}) {
   
@@ -12,7 +12,7 @@ export default function FacebookDashboard({}) {
   const router = useRouter();
 
   // ใช้ context เพื่อเข้าถึงข้อมูลแพลตฟอร์ม (ถ้าต้องการ)
-  const { activePlatform } = useSocialPlatform();
+  
 
   const handleReviewClick = () => {
     router.push(`/dashboard/followers-chart`);
