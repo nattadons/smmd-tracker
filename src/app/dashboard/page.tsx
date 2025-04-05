@@ -2,8 +2,8 @@
 
 import { useSocialPlatform } from "@/contexts/SocialPlatformContext";
 import YoutubeDashboard from "@/components/YoutubeDashboard";
-
-
+import TiktokDashboard from "@/components/TiktokDashboard";
+import TwitterDashboard from "@/components/TwitterDashboard";
 export default function DashboardPage() {
   const { activePlatform, connections } = useSocialPlatform();
 
@@ -15,7 +15,7 @@ export default function DashboardPage() {
           return <YoutubeDashboard  />;
         case "tiktok":
           // return <TiktokDashboard />; 
-          return <div className="w-full p-8 bg-white rounded-2xl shadow-xl">Tiktok Dashboard (Coming Soon)</div>;
+          return <TiktokDashboard/>;
         case "twitter":
           // return <TwitterDashboard />;
           return <div className="w-full p-8 bg-white rounded-2xl shadow-xl">Twitter Dashboard (Coming Soon)</div>;

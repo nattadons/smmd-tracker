@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
+// Add this to your imports
+import { useYoutubeAuth } from '@/hooks/useYoutubeAuth';
 // กำหนด type สำหรับ platforms ที่รองรับ
 export type SocialPlatform = "youtube" | "tiktok" | "twitter";
 
@@ -12,6 +14,7 @@ interface SocialPlatformContextType {
     connections: Record<SocialPlatform, boolean>;
     setConnections: React.Dispatch<React.SetStateAction<Record<SocialPlatform, boolean>>>;
     handleConnectDisconnect: () => void;
+    youtubeAuth: ReturnType<typeof useYoutubeAuth>; // Add this
 }
 
 // สร้าง context
@@ -29,6 +32,9 @@ export const SocialPlatformProvider = ({ children }: { children: ReactNode }) =>
     // State เก็บแพลตฟอร์มที่กำลังใช้งานอยู่
     const [activePlatform, setActivePlatform] = useState<SocialPlatform>("youtube");
     const router = useRouter(); // ใช้ useRouter เพื่อนำทาง
+
+
+
     // โหลด connection status จาก localStorage เมื่อ component mount
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -58,13 +64,38 @@ export const SocialPlatformProvider = ({ children }: { children: ReactNode }) =>
             router.push("/dashboard"); // นำทางเมื่อแพลตฟอร์มปัจจุบันถูก disconnect
         }
     }, [connections, activePlatform, router]);
+
+
+    // Add YouTube auth hook
+    const youtubeAuth = useYoutubeAuth();
     // Handler สำหรับเชื่อมต่อ/ตัดการเชื่อมต่อแพลตฟอร์ม
+    // Update your handleConnectDisconnect function
     const handleConnectDisconnect = () => {
-        setConnections(prev => ({
-            ...prev,
-            [activePlatform]: !prev[activePlatform]
-        }));
+        if (activePlatform === "youtube") {
+            if (connections.youtube) {
+                // Disconnect YouTube
+                youtubeAuth.disconnect();
+            } else {
+                // Connect YouTube
+                youtubeAuth.connect();
+            }
+        } else {
+            // Handle other platforms as before
+            setConnections(prev => ({
+                ...prev,
+                [activePlatform]: !prev[activePlatform]
+            }));
+        }
     };
+    // Sync YouTube auth state with connections state
+    useEffect(() => {
+        if (youtubeAuth.isAuthenticated !== connections.youtube) {
+            setConnections(prev => ({
+                ...prev,
+                youtube: youtubeAuth.isAuthenticated
+            }));
+        }
+    }, [youtubeAuth.isAuthenticated]);
 
 
     return (
@@ -74,7 +105,8 @@ export const SocialPlatformProvider = ({ children }: { children: ReactNode }) =>
                 setActivePlatform,
                 connections,
                 setConnections,
-                handleConnectDisconnect
+                handleConnectDisconnect,
+                youtubeAuth // Expose YouTube auth to consumers
             }}
         >
             {children}
